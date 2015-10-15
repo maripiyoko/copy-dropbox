@@ -30,48 +30,33 @@ gem 'redcarpet'
 gem 'enumerize'
 gem 'seed-fu'
 
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
-# Use Unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
 
 group :development, :test do
   gem 'byebug'
+  gem 'factory_girl_rails'
+  gem 'rspec-rails'
+  gem 'thin'
+end
+
+group :development do
+  gem 'web-console', '~> 2.0'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'meta_request'
-  gem 'web-console', '~> 2.0'
-  gem 'rails_12factor'
-  gem 'spring'
-  gem 'spring-commands-rspec'
-
-  gem 'hirb'
-  gem 'hirb-unicode'
-  gem 'pry-rails'
-  gem 'pry-byebug'
-  gem 'annotate'
-
-  # mail テスト用
-  gem 'dotenv-rails'
-  gem 'letter_opener'
-
-  # testing
-  gem 'rspec'
-  gem 'rspec-rails'
-  gem 'factory_girl_rails'
-  gem 'guard'
+  gem 'guard-bundler'
+  gem 'guard-rails'
   gem 'guard-rspec'
+  gem 'letter_opener'
+  gem 'quiet_assets'
+  gem 'rails_layout'
 
+  gem 'spring'
 end
 
 group :test do
-  gem 'faker'
   gem 'capybara'
   gem 'database_cleaner'
-  gem 'launchy'
-  gem 'selenium-webdriver'
+  gem 'email_spec'
 end
+
+
