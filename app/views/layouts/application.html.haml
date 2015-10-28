@@ -9,11 +9,15 @@
   %body
     = render 'layouts/header'
 
-    .container
+    .container-fluid
       .row
-        .col-sm-12
-          = render 'layouts/message'
-
-      .row
-        .col-sm-12
-          = yield
+        .col-sm-2
+          = render 'layouts/side_menu'
+        .col-sm-10
+          .row
+            .col-sm-12
+              = render 'layouts/message'
+            .col-sm-12
+              = render 'layouts/action_menu'
+            .col-sm-12
+              = yield

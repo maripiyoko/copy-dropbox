@@ -1,2 +1,10 @@
-%h1 Folders#show
-%p Find me in app/views/folders/show.html.haml
+%h2=@folder.name
+
+%table.table
+  %thead
+    %tr
+      %th 名前
+      %th 更新
+      %th 共有中のユーザー
+  %tbody
+    = render @folder.children
