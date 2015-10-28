@@ -4,4 +4,11 @@ class Folder < ActiveRecord::Base
 
   validates_presence_of :name, :user_id
   validates_uniqueness_of :name, scope: [ :user_id, :parent_folder_id ]
+
+  ROOT_FOLDER_NAME = 'home'.freeze
+
+  def self.find_or_create_users_root_folder(user)
+    self.find_or_create_by!(name: ROOT_FOLDER_NAME, user: user)
+  end
+
 end
