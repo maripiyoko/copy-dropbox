@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root 'home#index'
 
   resources :folders, only: [ :show ] do
-    resources :child_folders, except: [ :show, :index ]
+    resources :folders, except: [ :show, :index ], controller: 'child_folders'
     resources :uploaded_files, except: [ :show, :index ]
   end
 
