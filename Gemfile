@@ -29,6 +29,7 @@ gem 'bower-rails'
 gem 'redcarpet'
 gem 'enumerize'
 gem 'seed-fu'
+gem 'gretel'
 
 
 group :development, :test do
