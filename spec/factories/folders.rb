@@ -1,8 +1,8 @@
 FactoryGirl.define do
   factory :folder do
-    name "MyString"
-user nil
-parent_folder_id 1
+    name { Faker::Lorem.characters(10) }
+    association :user
+    parent_folder_id nil
   end
 
 end

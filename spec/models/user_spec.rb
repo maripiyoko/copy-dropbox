@@ -10,5 +10,5 @@ RSpec.describe User, type: :model do
     user = FactoryGirl.build(:user, { user_name: nil })
     expect(user.valid?).to be_falsey
   end
-  
+
 end
