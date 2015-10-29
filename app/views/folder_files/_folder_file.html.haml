@@ -1,6 +1,10 @@
 %tr
   %td
-    = folder_file.name
+    %i.glyphicon.glyphicon-file.glyphicon-icon-color
+  %td
+    = link_to folder_file.name, [ @folder, folder_file ]
+    = link_to [ :edit, @folder, folder_file ], title: 'ファイル名の更新', remote: true do
+      %i.glyphicon.glyphicon-pencil
   %td= folder_file.updated_at
   %td --
   %td
