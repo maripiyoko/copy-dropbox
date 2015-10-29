@@ -12,7 +12,8 @@
     .container-fluid
       .row
         .col-sm-2
-          = render 'layouts/side_menu'
+          - if user_signed_in?
+            = render 'layouts/side_menu'
         .col-sm-10
           .row
             .col-sm-12
@@ -20,6 +21,7 @@
             .col-sm-10
               = breadcrumbs style: :bootstrap
             .col-sm-2
-              = render 'layouts/action_menu'
+              - if user_signed_in?
+                = render 'layouts/action_menu'
             .col-sm-12
               = yield
