@@ -1,0 +1,8 @@
+machine:
+  ruby:
+    version: 2.2.2
+  timezone: Asia/Tokyo
+
+dependencies:
+  post:
+    - bundle exec rake assets:precompile
