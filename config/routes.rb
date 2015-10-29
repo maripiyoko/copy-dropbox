@@ -14,6 +14,7 @@ Rails.application.routes.draw do
         get :move
       end
     end
+    resources :sharing_folders, only: [ :new, :create, :destroy ]
   end
 
 end
