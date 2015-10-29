@@ -9,3 +9,9 @@ crumb :folder do |folder|
   end
 end
 
+crumb :folder_file do |folder_file|
+  link folder_file.name, folder_folder_file_path(folder_file.folder, folder_file)
+  unless folder_file.folder.nil?
+    parent :folder, folder_file.folder
+  end
+end

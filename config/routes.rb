@@ -8,7 +8,7 @@ Rails.application.routes.draw do
         get :move
       end
     end
-    resources :folder_files, except: [ :show, :index ]
+    resources :folder_files, except: [ :index ]
   end
 
 end
