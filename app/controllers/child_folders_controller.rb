@@ -1,12 +1,20 @@
 class ChildFoldersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_parent_folder
+  before_action :set_child_folder, only: [ :edit, :update, :destroy ]
 
   def new
     @child_folder = Folder.new(parent_folder: @folder, user: current_user)
     respond_to do |format|
       format.html
       format.js
+    end
+  end
+
+  def edit
+    respond_to do |format|
+      format.html { render :new }
+      format.js { render :new }
     end
   end
 
@@ -21,7 +29,11 @@ class ChildFoldersController < ApplicationController
   end
 
   def update
-
+    if @child_folder.update(folder_params)
+      redirect_to @folder, notice: "#{@child_folder.name} にリネームしました。"
+    else
+      redirect_to @folder, alert: "フォルダ名のリネームが出来ませんでした。"
+    end
   end
 
 
@@ -29,6 +41,10 @@ class ChildFoldersController < ApplicationController
 
     def set_parent_folder
       @folder = Folder.find(params[:folder_id])
+    end
+
+    def set_child_folder
+      @child_folder = Folder.find(params[:id])
     end
 
     def folder_params
