@@ -1,7 +1,7 @@
 class ChildFoldersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_parent_folder
-  before_action :set_child_folder, only: [ :edit, :update, :destroy ]
+  before_action :set_child_folder, only: [ :edit, :move, :update, :destroy ]
 
   def new
     @modal_title = "新しいフォルダを作成します"
@@ -20,6 +20,14 @@ class ChildFoldersController < ApplicationController
     end
   end
 
+  def move
+    @modal_title = "フォルダを移動します"
+    @other_folders = @child_folder.other_parent_folders(current_user)
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def create
     @child_folder = Folder.new(folder_params)
     @child_folder.user = current_user
@@ -32,9 +40,9 @@ class ChildFoldersController < ApplicationController
 
   def update
     if @child_folder.update(folder_params)
-      redirect_to @folder, notice: "#{@child_folder.name} にリネームしました。"
+      redirect_to @folder, notice: "#{@child_folder.name} を更新しました。"
     else
-      redirect_to @folder, alert: "フォルダ名のリネームが出来ませんでした。"
+      redirect_to @folder, alert: "フォルダを更新出来ませんでした。"
     end
   end
 

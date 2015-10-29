@@ -15,4 +15,15 @@ class Folder < ActiveRecord::Base
     Folder.where(parent_folder_id: self.id, user: self.user)
   end
 
+  def other_parent_folders(user)
+    all_folders = Folder.where(user: user).order(:parent_folder_id)
+    self_folder = Folder.where(id: self.id)
+    child_folders = self.children
+    unless self.parent_folder.nil?
+      self_parent_folder = Folder.where(id: self.parent_folder)
+      all_folders - self_folder - child_folders - self_parent_folder
+    else
+      all_folders - self_folder - child_folders
+    end
+  end
 end

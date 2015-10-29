@@ -3,9 +3,11 @@
     = link_to folder.name, folder
     = link_to [ :edit, @folder, folder ], title: 'フォルダ名更新', remote: true do
       %i.glyphicon.glyphicon-pencil
+    = link_to [ :move, @folder, folder ], title: 'フォルダの移動', remote: true do
+      %i.glyphicon.glyphicon-share-alt
   %td= folder.updated_at
   %td --
   %td
     = link_to [ @folder, folder ], method: :delete, class: "text-danger", title: '削除',  data: { confirm: "本当に削除しますか？" } do
-      %i.glyphicon.glyphicon-remove-circle
+      %i.glyphicon.glyphicon-trash
 
