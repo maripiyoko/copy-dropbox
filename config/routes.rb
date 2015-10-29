@@ -13,6 +13,7 @@ Rails.application.routes.draw do
         get :download
         get :move
       end
+      resources :sharing_files, only: [ :new, :create, :destroy ]
     end
     resources :sharing_folders, only: [ :new, :create, :destroy ]
   end

@@ -4,7 +4,6 @@ class SharingFoldersController < ApplicationController
 
   def new
     @sharing_folder = SharingFolder.new(folder: @folder)
-    @modal_title = "共有したいユーザーを選んでください"
     respond_to do |format|
       format.html
       format.js
