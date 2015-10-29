@@ -45,6 +45,11 @@ class FolderFilesController < ApplicationController
     send_file(@child_file.uploaded_file.current_path)
   end
 
+  def destroy
+    @child_file.destroy!
+    redirect_to @folder, notice: "ファイルを削除しました。"
+  end
+
   private
 
     def set_parent_folder
