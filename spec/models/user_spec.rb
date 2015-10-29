@@ -20,6 +20,16 @@ RSpec.describe User, type: :model do
     expect(folder.shared_users.count).to eq(1)
   end
 
+  it "should respond shared_files" do
+    user1 = FactoryGirl.create(:user)
+    user2 = FactoryGirl.create(:user)
+    folder = FactoryGirl.create(:folder, { user: user1 })
+    file1 = FactoryGirl.create(:folder_file, { user: user1, folder: folder })
+    FactoryGirl.create(:sharing_file, { folder_file: file1, user: user2})
+    expect(user2.shared_files.count).to eq(1)
+    expect(file1.shared_users.count).to eq(1)
+  end
+
   it "should respond other_users" do
     user1 = FactoryGirl.create(:user)
     10.times do

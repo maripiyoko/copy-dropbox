@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151029125036) do
+ActiveRecord::Schema.define(version: 20151029225433) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,16 @@ ActiveRecord::Schema.define(version: 20151029125036) do
 
   add_index "folders", ["name", "user_id", "parent_folder_id"], name: "index_folders_on_name_and_user_id_and_parent_folder_id", unique: true, using: :btree
   add_index "folders", ["user_id"], name: "index_folders_on_user_id", using: :btree
+
+  create_table "sharing_files", force: :cascade do |t|
+    t.integer  "folder_file_id"
+    t.integer  "user_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "sharing_files", ["folder_file_id"], name: "index_sharing_files_on_folder_file_id", using: :btree
+  add_index "sharing_files", ["user_id"], name: "index_sharing_files_on_user_id", using: :btree
 
   create_table "sharing_folders", force: :cascade do |t|
     t.integer  "folder_id"
@@ -72,6 +82,8 @@ ActiveRecord::Schema.define(version: 20151029125036) do
   add_foreign_key "folder_files", "users"
   add_foreign_key "folders", "folders", column: "parent_folder_id"
   add_foreign_key "folders", "users"
+  add_foreign_key "sharing_files", "folder_files"
+  add_foreign_key "sharing_files", "users"
   add_foreign_key "sharing_folders", "folders"
   add_foreign_key "sharing_folders", "users"
 end
