@@ -16,14 +16,21 @@ class Folder < ActiveRecord::Base
   end
 
   def other_parent_folders(user)
-    all_folders = Folder.where(user: user).order(:parent_folder_id)
-    self_folder = Folder.where(id: self.id)
-    child_folders = self.children
-    unless self.parent_folder.nil?
-      self_parent_folder = Folder.where(id: self.parent_folder)
-      all_folders - self_folder - child_folders - self_parent_folder
-    else
-      all_folders - self_folder - child_folders
+    all_folders = Folder.where(user: user)
+    # 自分の子孫フォルダを候補から外す（辿れなくなるため）
+    target_id = self.id
+    descendants_folders = Folder.where(id: target_id)
+    all_folders.each do |f|
+      descendants_folders << f if f.is_ancester?(target_id)
     end
+    results = all_folders - descendants_folders
+    results.sort { | a, b| a.id <=> b.id }
+  end
+
+  # self の parent_folder をnilまで辿る途中で、idが出てくるかチェック
+  def is_ancester?(target_id)
+    return false if self.parent_folder.nil?
+    return true if self.parent_folder.id == target_id || self.id == target_id
+    self.parent_folder.is_ancester?(target_id)
   end
 end
