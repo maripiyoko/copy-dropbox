@@ -8,6 +8,6 @@
       %th 共有中のユーザー
       %th
   %tbody
-    = render @folder.children
+    = render @folder.all_children
 
 = render 'modal_folder'

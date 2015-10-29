@@ -11,6 +11,17 @@ class Folder < ActiveRecord::Base
     self.find_or_create_by!(name: ROOT_FOLDER_NAME, user: user)
   end
 
+  def all_children
+    objects = []
+    self.children.each do |f|
+      objects << f
+    end
+    FolderFile.where(folder_id: self.id).each do |f|
+      objects << f
+    end
+    objects
+  end
+
   def children
     Folder.where(parent_folder_id: self.id, user: self.user)
   end

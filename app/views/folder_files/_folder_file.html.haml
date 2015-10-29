@@ -1,0 +1,9 @@
+%tr
+  %td
+    = folder_file.name
+  %td= folder_file.updated_at
+  %td --
+  %td
+    = link_to [ @folder, folder_file ], method: :delete, class: "text-danger", title: '削除',  data: { confirm: "本当に削除しますか？" } do
+      %i.glyphicon.glyphicon-trash
+
