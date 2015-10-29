@@ -6,5 +6,6 @@
 - else
   %p 画像以外はプレビューできません
 
-%button.btn.btn-primary
-  ダウンロードする
+= link_to [ :download, @folder, @child_file ], class: "btn btn-primary" do
+  %i.glyphicon.glyphicon-cloud-download
+  %span ダウンロードする

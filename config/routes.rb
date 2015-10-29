@@ -8,7 +8,11 @@ Rails.application.routes.draw do
         get :move
       end
     end
-    resources :folder_files, except: [ :index ]
+    resources :folder_files, except: [ :index ] do
+      member do
+        get :download
+      end
+    end
   end
 
 end

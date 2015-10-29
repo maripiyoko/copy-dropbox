@@ -1,7 +1,7 @@
 class FolderFilesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_parent_folder
-  before_action :set_child_file, only: [ :show, :edit, :update, :destroy ]
+  before_action :set_child_file, only: [ :show, :edit, :update, :destroy, :download ]
 
   def new
     @modal_title = "新しいファイルをアップロードします"
@@ -39,6 +39,10 @@ class FolderFilesController < ApplicationController
     else
       redirect_to @folder, alert: "ファイル名の更新が出来ませんでした。"
     end
+  end
+
+  def download
+    send_file(@child_file.uploaded_file.current_path)
   end
 
   private
