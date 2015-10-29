@@ -4,6 +4,7 @@ class ChildFoldersController < ApplicationController
   before_action :set_child_folder, only: [ :edit, :update, :destroy ]
 
   def new
+    @modal_title = "新しいフォルダを作成します"
     @child_folder = Folder.new(parent_folder: @folder, user: current_user)
     respond_to do |format|
       format.html
@@ -12,6 +13,7 @@ class ChildFoldersController < ApplicationController
   end
 
   def edit
+    @modal_title = "フォルダ名を変更します"
     respond_to do |format|
       format.html { render :new }
       format.js { render :new }

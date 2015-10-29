@@ -4,7 +4,7 @@
 
 .modal-body
   = simple_form_for [@folder, @child_folder] do |f|
-    = f.input :name, label: 'フォルダ名'
+    = f.input :name, label: 'フォルダ名', disabled: true
     = f.input :parent_folder_id, as: :hidden
     = f.button :submit, class: "btn btn-primary"
 
