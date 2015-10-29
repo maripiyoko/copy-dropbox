@@ -30,7 +30,8 @@ gem 'redcarpet'
 gem 'enumerize'
 gem 'seed-fu'
 gem 'gretel'
-
+gem 'carrierwave'
+gem 'fog'
 
 group :development, :test do
   gem 'byebug'
