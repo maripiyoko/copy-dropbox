@@ -19,4 +19,13 @@ RSpec.describe User, type: :model do
     expect(user2.shared_folders.count).to eq(1)
     expect(folder.shared_users.count).to eq(1)
   end
+
+  it "should respond other_users" do
+    user1 = FactoryGirl.create(:user)
+    10.times do
+      FactoryGirl.create(:user)
+    end
+    expect(user1.other_users.count).to eq(10)
+    expect(user1.other_users).not_to include(user1)
+  end
 end

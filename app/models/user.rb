@@ -10,4 +10,9 @@ class User < ActiveRecord::Base
   has_many :shared_folders, through: :sharing_folders, source: :folder
 
   validates_presence_of :user_name
+
+  def other_users
+    User.where.not(id: self.id)
+  end
+
 end
