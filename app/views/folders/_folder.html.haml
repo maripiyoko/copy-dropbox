@@ -5,3 +5,7 @@
       %i.glyphicon.glyphicon-pencil
   %td= folder.updated_at
   %td --
+  %td
+    = link_to [ @folder, folder ], method: :delete, class: "text-danger", title: '削除',  data: { confirm: "本当に削除しますか？" } do
+      %i.glyphicon.glyphicon-remove-circle
+
