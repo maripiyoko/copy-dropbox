@@ -1,6 +1,6 @@
 %tr
   %td
-    = folder.name
+    = link_to folder.name, folder
     = link_to [ :edit, @folder, folder ], title: 'フォルダ名更新', remote: true do
       %i.glyphicon.glyphicon-pencil
   %td= folder.updated_at
