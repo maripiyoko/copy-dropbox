@@ -11,17 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151029035038) do
+ActiveRecord::Schema.define(version: 20151029045752) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "folder_files", force: :cascade do |t|
-    t.string   "name",       null: false
+    t.string   "name",          null: false
     t.integer  "folder_id"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.text     "uploaded_file"
   end
 
   add_index "folder_files", ["folder_id"], name: "index_folder_files_on_folder_id", using: :btree
