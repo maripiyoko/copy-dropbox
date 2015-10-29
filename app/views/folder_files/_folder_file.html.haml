@@ -5,6 +5,8 @@
     = link_to folder_file.name, [ @folder, folder_file ]
     = link_to [ :edit, @folder, folder_file ], title: 'ファイル名の更新', remote: true do
       %i.glyphicon.glyphicon-pencil
+    = link_to [ :move, @folder, folder_file ], title: 'ファイルの移動', remote: true do
+      %i.glyphicon.glyphicon-share-alt
   %td= folder_file.updated_at
   %td --
   %td

@@ -1,7 +1,7 @@
 class FolderFilesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_parent_folder
-  before_action :set_child_file, only: [ :show, :edit, :update, :destroy, :download ]
+  before_action :set_child_file, only: [ :show, :edit, :update, :destroy, :download, :move ]
 
   def new
     @modal_title = "新しいファイルをアップロードします"
@@ -20,6 +20,14 @@ class FolderFilesController < ApplicationController
     end
   end
 
+  def move
+    @modal_title = "ファイルの移動"
+    @other_folders = current_user.folders
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def create
     @child_file = FolderFile.new(folder_file_params)
     @child_file.user = current_user
@@ -34,10 +42,10 @@ class FolderFilesController < ApplicationController
   end
 
   def update
-    if @child_file.update_attributes({name: params[:folder_file][:name]})
-      redirect_to @folder, notice: "ファイル名を更新しました。"
+    if @child_file.update(folder_file_updating_params)
+      redirect_to @folder, notice: "ファイルを更新しました。"
     else
-      redirect_to @folder, alert: "ファイル名の更新が出来ませんでした。"
+      redirect_to @folder, alert: "ファイルを更新出来ませんでした。"
     end
   end
 
@@ -62,5 +70,9 @@ class FolderFilesController < ApplicationController
 
     def folder_file_params
       params.require(:folder_file).permit(:name, :folder_id, :uploaded_file)
+    end
+
+    def folder_file_updating_params
+      params.require(:folder_file).permit(:name, :folder_id)
     end
 end

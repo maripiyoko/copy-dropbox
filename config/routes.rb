@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     resources :folder_files, except: [ :index ] do
       member do
         get :download
+        get :move
       end
     end
   end
