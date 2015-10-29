@@ -1,0 +1,7 @@
+.btn-group.pull-right
+  %button.btn.btn-default
+    = link_to '#', title: "ファイルのアップロード" do
+      %i.glyphicon.glyphicon-open-file
+  %button.btn.btn-default
+    = link_to new_folder_folder_path(@folder), title: "フォルダの新規作成", remote: true do
+      %i.glyphicon.glyphicon-folder-close

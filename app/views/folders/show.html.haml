@@ -1,0 +1,13 @@
+- breadcrumb :folder, @folder
+
+%table.table
+  %thead
+    %tr
+      %th 名前
+      %th 更新
+      %th 共有中のユーザー
+      %th
+  %tbody
+    = render @folder.children
+
+= render 'modal_folder'

@@ -29,6 +29,7 @@ gem 'bower-rails'
 gem 'redcarpet'
 gem 'enumerize'
 gem 'seed-fu'
+gem 'gretel'
 
 
 group :development, :test do
@@ -36,6 +37,13 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'rspec-rails'
   gem 'thin'
+
+  gem 'faker'
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'email_spec'
+  gem 'launchy'
+  gem 'selenium-webdriver'
 end
 
 group :development do
@@ -51,12 +59,6 @@ group :development do
   gem 'rails_layout'
 
   gem 'spring'
-end
-
-group :test do
-  gem 'capybara'
-  gem 'database_cleaner'
-  gem 'email_spec'
 end
 
 
