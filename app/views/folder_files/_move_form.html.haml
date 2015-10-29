@@ -1,0 +1,14 @@
+.modal-header
+  %button{ class: "close", data: { dismiss: "modal" }, aria: { hidden: "true" } }☓
+  %h4.modal-title= @modal_title
+
+.modal-body
+  = simple_form_for [@folder, @child_file] do |f|
+    = f.input :name, label: 'フォルダ名', disabled: true
+    = f.input :folder_id, as: :select, collection: @other_folders
+    = f.button :submit, class: "btn btn-primary"
+
+.modal-footer
+  %button{ class: "btn btn-default", data: { dismiss: "modal" } } Close
+
+

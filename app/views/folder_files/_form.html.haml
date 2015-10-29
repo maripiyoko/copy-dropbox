@@ -1,0 +1,16 @@
+.modal-header
+  %button{ class: "close", data: { dismiss: "modal" }, aria: { hidden: "true" } }☓
+  %h4.modal-title= @modal_title
+
+.modal-body
+  = form_for [@folder, @child_file] do |f|
+    = f.text_field :name
+    = f.hidden_field :folder_id
+    = f.file_field :uploaded_file
+
+    = f.submit
+
+.modal-footer
+  %button{ class: "btn btn-default", data: { dismiss: "modal" } } Close
+
+

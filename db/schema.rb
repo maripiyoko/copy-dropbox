@@ -11,10 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151027230542) do
+ActiveRecord::Schema.define(version: 20151029045752) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "folder_files", force: :cascade do |t|
+    t.string   "name",          null: false
+    t.integer  "folder_id"
+    t.integer  "user_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.text     "uploaded_file"
+  end
+
+  add_index "folder_files", ["folder_id"], name: "index_folder_files_on_folder_id", using: :btree
+  add_index "folder_files", ["user_id"], name: "index_folder_files_on_user_id", using: :btree
 
   create_table "folders", force: :cascade do |t|
     t.string   "name"
@@ -46,6 +58,8 @@ ActiveRecord::Schema.define(version: 20151027230542) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "folder_files", "folders"
+  add_foreign_key "folder_files", "users"
   add_foreign_key "folders", "folders", column: "parent_folder_id"
   add_foreign_key "folders", "users"
 end

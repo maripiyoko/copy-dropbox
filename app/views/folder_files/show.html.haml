@@ -1,0 +1,11 @@
+- breadcrumb :folder_file, @child_file
+
+%h2="#{@child_file.name} のプレビュー"
+- if @child_file.is_image?
+  = image_tag @child_file.uploaded_file.url
+- else
+  %p 画像以外はプレビューできません
+
+= link_to [ :download, @folder, @child_file ], class: "btn btn-primary" do
+  %i.glyphicon.glyphicon-cloud-download
+  %span ダウンロードする

@@ -45,4 +45,15 @@ RSpec.describe Folder, type: :model do
       expect(folder2.valid?).to be_truthy
     end
   end
+
+  it "should return all children included folders and files" do
+    user = FactoryGirl.create(:user)
+    folder = FactoryGirl.create(:folder, { name: "parent_folder", user: user} )
+    child_folder1 = FactoryGirl.create(:folder, { name: "child1", parent_folder: folder, user: user })
+    10.times do
+      FactoryGirl.create(:folder_file, { folder: folder, user: user })
+    end
+    expect(folder.all_children.size).to eq(11)
+    expect(folder.all_children).to include(child_folder1)
+  end
 end
