@@ -6,5 +6,8 @@ class User < ActiveRecord::Base
 
   has_many :folders
 
+  has_many :sharing_folders, class_name: 'SharingFolder', foreign_key: :user_id
+  has_many :shared_folders, through: :sharing_folders, source: :folder
+
   validates_presence_of :user_name
 end

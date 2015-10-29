@@ -11,4 +11,12 @@ RSpec.describe User, type: :model do
     expect(user.valid?).to be_falsey
   end
 
+  it "should respond shared_folders" do
+    user1 = FactoryGirl.create(:user)
+    user2 = FactoryGirl.create(:user)
+    folder = FactoryGirl.create(:folder, { user: user1 })
+    FactoryGirl.create(:sharing_folder, { folder: folder, user: user2})
+    expect(user2.shared_folders.count).to eq(1)
+    expect(folder.shared_users.count).to eq(1)
+  end
 end
