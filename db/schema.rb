@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151029225433) do
+ActiveRecord::Schema.define(version: 20151102010631) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20151029225433) do
     t.datetime "updated_at",     null: false
   end
 
+  add_index "sharing_files", ["folder_file_id", "user_id"], name: "index_sharing_files_on_folder_file_id_and_user_id", unique: true, using: :btree
   add_index "sharing_files", ["folder_file_id"], name: "index_sharing_files_on_folder_file_id", using: :btree
   add_index "sharing_files", ["user_id"], name: "index_sharing_files_on_user_id", using: :btree
 
@@ -56,6 +57,7 @@ ActiveRecord::Schema.define(version: 20151029225433) do
     t.datetime "updated_at", null: false
   end
 
+  add_index "sharing_folders", ["folder_id", "user_id"], name: "index_sharing_folders_on_folder_id_and_user_id", unique: true, using: :btree
   add_index "sharing_folders", ["folder_id"], name: "index_sharing_folders_on_folder_id", using: :btree
   add_index "sharing_folders", ["user_id"], name: "index_sharing_folders_on_user_id", using: :btree
 

@@ -13,6 +13,7 @@ class SharingFoldersController < ApplicationController
   def create
     @sharing_folder = SharingFolder.new(sharing_folder_params)
     if @sharing_folder.save
+      Notification.sharing_notice(current_user, @sharing_folder.user).deliver_now
       redirect_to @folder, notice: "#{@folder.name} を #{@sharing_folder.user.user_name} に共有しました。"
     else
       redirect_to @folder, alert: "#{@folder.name} を共有出来ませんでした。"
