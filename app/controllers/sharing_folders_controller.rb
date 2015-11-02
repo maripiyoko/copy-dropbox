@@ -21,7 +21,7 @@ class SharingFoldersController < ApplicationController
   end
 
   def destroy
-    
+    ### 処理の記述忘れ ?
   end
 
   private

@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+### ruby のバージョンも明示しておいて方がよいです
 
 gem 'rails', '4.2.4.rc1'
 gem 'pg'

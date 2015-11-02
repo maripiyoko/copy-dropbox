@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
   validates_presence_of :user_name
 
   def other_users
+    ### where で複数の ActiveRecord を取る場合は、scope に分けた方がよいですね。
     User.where.not(id: self.id)
   end
 
