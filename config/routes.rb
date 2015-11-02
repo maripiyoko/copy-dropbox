@@ -18,4 +18,6 @@ Rails.application.routes.draw do
     resources :sharing_folders, only: [ :new, :create, :destroy ]
   end
 
+  get 'shared_files', to: 'folders#shared_files'
+
 end

@@ -1,0 +1,24 @@
+%h2 共有されたファイル一覧
+
+%table.table
+  %thead
+    %tr
+      %th{style: "width:1em;"}
+      %th 名前
+      %th 更新
+      %th 共有元のユーザー
+  %tbody
+    - @shared_files.each do |f|
+      %tr
+        - if f.kind_of?(Folder)
+          %td
+            %i.glyphicon.glyphicon-folder-close.glyphicon-icon-color
+          %td
+            = link_to f.name, f
+        - else
+          %td
+            %i.glyphicon.glyphicon-file.glyphicon-icon-color
+          %td
+            = link_to f.name, [ f.folder, f ]
+        %td= f.updated_at
+        %td= f.user.user_name

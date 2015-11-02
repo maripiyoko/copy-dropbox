@@ -18,4 +18,15 @@ class User < ActiveRecord::Base
     User.where.not(id: self.id)
   end
 
+  def all_shared
+    objects = []
+    self.shared_folders.each do |f|
+      objects << f
+    end
+    self.shared_files.each do |f|
+      objects << f
+    end
+    objects
+  end
+
 end
