@@ -5,12 +5,14 @@ Rails.application.routes.draw do
   resources :folders, only: [ :show ] do
     resources :folders, except: [ :show, :index ], controller: 'child_folders' do
       member do
+        ### 細かいですが、更新系の処理ですので get ではなく patch メソッドを使う方が REST の原則に則っています。
         get :move
       end
     end
     resources :folder_files, except: [ :index ] do
       member do
         get :download
+        ### 細かいですが、更新系の処理ですので get ではなく patch メソッドを使う方が REST の原則に則っています。
         get :move
       end
       resources :sharing_files, only: [ :new, :create, :destroy ]
