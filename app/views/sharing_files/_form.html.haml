@@ -1,0 +1,15 @@
+.modal-header
+  %button{ class: "close", data: { dismiss: "modal" }, aria: { hidden: "true" } }☓
+  %h4.modal-title 共有したいユーザーを選んでください
+
+.modal-body
+  %label=@folder_file.name
+  = simple_form_for [@folder, @folder_file, @sharing_folder_file] do |f|
+    = f.input :folder_file_id, as: :hidden
+    = f.input :user_id, as: :select, collection: current_user.other_users.map{|u| [ "#{u.user_name} (#{u.email})", u.id]}
+    = f.button :submit, class: "btn btn-primary"
+
+.modal-footer
+  %button{ class: "btn btn-default", data: { dismiss: "modal" } } Close
+
+

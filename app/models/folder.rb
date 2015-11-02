@@ -2,6 +2,9 @@ class Folder < ActiveRecord::Base
   belongs_to :user
   belongs_to :parent_folder, class_name: 'Folder'
 
+  has_many :sharing_folders, class_name: 'SharingFolder', foreign_key: :folder_id
+  has_many :shared_users, through: :sharing_folders, source: :user
+
   validates_presence_of :name, :user_id
   validates_uniqueness_of :name, scope: [ :user_id, :parent_folder_id ]
 

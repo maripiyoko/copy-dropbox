@@ -4,6 +4,9 @@ class FolderFile < ActiveRecord::Base
 
   mount_uploader :uploaded_file, FileUploader
 
+  has_many :sharing_files, class_name: 'SharingFile', foreign_key: :folder_file_id
+  has_many :shared_users, through: :sharing_files, source: :user
+
   validates_presence_of :folder_id, :user_id
   validates_uniqueness_of :name, scope: [ :folder_id, :user_id ]
 

@@ -18,10 +18,13 @@
           .row
             .col-sm-12
               = render 'layouts/message'
-            .col-sm-10
-              = breadcrumbs style: :bootstrap
-            .col-sm-2
-              - if user_signed_in?
+            - if user_signed_in? && @folder.present? && @folder.user == current_user
+              .col-sm-10
+                = breadcrumbs style: :bootstrap
+              .col-sm-2
                 = render 'layouts/action_menu'
+            - else
+              - if @folder.present?
+                %h2=@folder.name
             .col-sm-12
               = yield

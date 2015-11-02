@@ -8,7 +8,7 @@
     = link_to [ :move, @folder, folder_file ], title: 'ファイルの移動', remote: true do
       %i.glyphicon.glyphicon-share-alt
   %td= folder_file.updated_at
-  %td --
+  %td= link_to '共有する', new_folder_folder_file_sharing_file_path(@folder, folder_file), remote: true, class: "btn btn-default btn-sm"
   %td
     = link_to [ @folder, folder_file ], method: :delete, class: "text-danger", title: '削除',  data: { confirm: "本当に削除しますか？" } do
       %i.glyphicon.glyphicon-trash
