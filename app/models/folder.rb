@@ -27,8 +27,6 @@ class Folder < ActiveRecord::Base
   end
 
   def children
-    ### where で複数のオブジェクトを取る場合は、 scope で書いた方が自然だと思います。
-    ### scope :children, ->(parent_id, user) { where(parent_folder_id: parent_id, user: user) }
     Folder.where(parent_folder_id: self.id, user: self.user)
   end
 
