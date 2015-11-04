@@ -19,10 +19,6 @@ class SharingFoldersController < ApplicationController
     end
   end
 
-  def destroy
-    ### 処理の記述忘れ ?
-  end
-
   private
 
     def set_folder
