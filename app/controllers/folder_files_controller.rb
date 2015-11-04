@@ -1,5 +1,4 @@
 class FolderFilesController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_parent_folder
   before_action :set_child_file, only: [ :show, :edit, :update, :destroy, :download, :move ]
 

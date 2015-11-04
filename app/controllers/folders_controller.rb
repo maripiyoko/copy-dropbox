@@ -1,5 +1,4 @@
 class FoldersController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_folder, except: [ :shared_files ]
 
   def shared_files

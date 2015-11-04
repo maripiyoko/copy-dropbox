@@ -1,5 +1,4 @@
 class ChildFoldersController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_parent_folder
   before_action :set_child_folder, only: [ :edit, :move, :update, :destroy ]
 
