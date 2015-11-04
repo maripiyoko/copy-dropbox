@@ -20,9 +20,7 @@ class Folder < ActiveRecord::Base
     self.children.each do |f|
       objects << f
     end
-    ### 上にも書きましたが、folder_files と一対多の関連を設定しておけば、
-    ### self.folder_files で同じ結果が得られるはずです。
-    FolderFile.where(folder_id: self.id).each do |f|
+    self.folder_files.each do |f|
       objects << f
     end
     objects
