@@ -4,8 +4,7 @@ class Folder < ActiveRecord::Base
 
   has_many :sharing_folders, class_name: 'SharingFolder', foreign_key: :folder_id
   has_many :shared_users, through: :sharing_folders, source: :user
-  ### 関連の設定漏れ ?
-  ### has_many :folder_files
+  has_many :folder_files
 
   validates_presence_of :name, :user_id
   validates_uniqueness_of :name, scope: [ :user_id, :parent_folder_id ]
