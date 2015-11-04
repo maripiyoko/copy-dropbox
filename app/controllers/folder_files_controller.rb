@@ -1,6 +1,5 @@
 class FolderFilesController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_parent_folder
+  before_action :set_folder
   before_action :set_child_file, only: [ :show, :edit, :update, :destroy, :download, :move ]
 
   def new
@@ -60,8 +59,7 @@ class FolderFilesController < ApplicationController
 
   private
 
-    def set_parent_folder
-      ### 変数名を @parent_folder とした方が読みやすいと感じました
+    def set_folder
       @folder = Folder.find(params[:folder_id])
     end
 

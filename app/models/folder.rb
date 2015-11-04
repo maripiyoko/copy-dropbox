@@ -4,8 +4,7 @@ class Folder < ActiveRecord::Base
 
   has_many :sharing_folders, class_name: 'SharingFolder', foreign_key: :folder_id
   has_many :shared_users, through: :sharing_folders, source: :user
-  ### 関連の設定漏れ ?
-  ### has_many :folder_files
+  has_many :folder_files
 
   validates_presence_of :name, :user_id
   validates_uniqueness_of :name, scope: [ :user_id, :parent_folder_id ]
@@ -36,14 +35,10 @@ class Folder < ActiveRecord::Base
   end
 
   def other_parent_folders(user)
-    ### self.user.folders でも期待している結果は得られますね
-    all_folders = Folder.where(user: user)
+    all_folders = self.user.folders
     # 自分の子孫フォルダを候補から外す（辿れなくなるため）
     target_id = self.id
-    ### おそらく自分自身を配列として descendants_folders に代入したいという意図だったと推測しています。
-    ### self に自分自身がありますので、 さらに `Folder.where(id: target_id)` で同じものを取るのは少し冗長な気がします。
-    ### 結果は変わりませんが、 `[self]` を代入すればよいと思います。
-    descendants_folders = Folder.where(id: target_id)
+    descendants_folders = [self]
     all_folders.each do |f|
       descendants_folders << f if f.is_ancester?(target_id)
     end
