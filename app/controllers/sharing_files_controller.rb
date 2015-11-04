@@ -1,5 +1,5 @@
 class SharingFilesController < ApplicationController
-  before_action :set_folder_file
+  before_action :set_folder_file, :set_folder
 
   def new
     @sharing_folder_file = SharingFile.new(folder_file: @folder_file)
@@ -23,10 +23,9 @@ class SharingFilesController < ApplicationController
 
     def set_folder_file
       @folder_file = current_user.folder_files.find(params[:folder_file_id])
-      ### set_folder_file メソッドの中で @folder にも set していますので、少し読んでいて引っかかりました。
-      ### set_folder というプライベートメソッドを、別途用意し、
-      ### `before_action :set_folder_file, :set_folder`
-      ### とした方が読みやすいような気がします。
+    end
+
+    def set_folder
       @folder = @folder_file.folder
     end
 
