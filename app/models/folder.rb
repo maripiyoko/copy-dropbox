@@ -35,14 +35,10 @@ class Folder < ActiveRecord::Base
   end
 
   def other_parent_folders(user)
-    ### self.user.folders でも期待している結果は得られますね
-    all_folders = Folder.where(user: user)
+    all_folders = self.user.folders
     # 自分の子孫フォルダを候補から外す（辿れなくなるため）
     target_id = self.id
-    ### おそらく自分自身を配列として descendants_folders に代入したいという意図だったと推測しています。
-    ### self に自分自身がありますので、 さらに `Folder.where(id: target_id)` で同じものを取るのは少し冗長な気がします。
-    ### 結果は変わりませんが、 `[self]` を代入すればよいと思います。
-    descendants_folders = Folder.where(id: target_id)
+    descendants_folders = [self]
     all_folders.each do |f|
       descendants_folders << f if f.is_ancester?(target_id)
     end
