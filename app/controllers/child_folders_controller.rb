@@ -50,7 +50,7 @@ class ChildFoldersController < ApplicationController
 
   def destroy
     redirect_to root_path, alert: 'ルートフォルダは削除できません。' if @child_folder.parent_folder_id.nil?
-    if @child_folder.children.empty?
+    if @child_folder.all_children.empty?
       @child_folder.destroy!
       redirect_to @folder, notice: 'フォルダを削除しました。'
     else
