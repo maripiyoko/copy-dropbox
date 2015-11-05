@@ -32,10 +32,14 @@ class FolderFilesController < ApplicationController
     if @child_file.name.empty?
       @child_file.name = @child_file.uploaded_file.filename
     end
+
     if @child_file.save
       redirect_to @folder, notice: "#{@child_file.name} をアップロードしました。"
     else
-      if @child_file.errors.messages.has_key?(:name)
+      name_error_message = @child_file.errors.messages[:name]
+      if name_error_message[0].include?("blank")
+        message = "ファイルがありません。"
+      elsif name_error_message[0].include?("taken")
         message = "ファイル名#{@child_file.name}は既に使われています。"
       end
       message += "ファイルがアップロード出来ませんでした。"

@@ -7,7 +7,7 @@ class FolderFile < ActiveRecord::Base
   has_many :sharing_files, class_name: 'SharingFile', foreign_key: :folder_file_id
   has_many :shared_users, through: :sharing_files, source: :user
 
-  validates_presence_of :folder_id, :user_id
+  validates_presence_of :folder_id, :user_id, :name
   validates_uniqueness_of :name, scope: [ :folder_id, :user_id ]
 
   VALID_IMG_EXTS = %w(
