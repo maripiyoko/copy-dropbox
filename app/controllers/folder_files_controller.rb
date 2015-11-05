@@ -28,15 +28,18 @@ class FolderFilesController < ApplicationController
   end
 
   def create
-    @child_file = FolderFile.new(folder_file_params)
-    @child_file.user = current_user
+    @child_file = current_user.folder_files.new(folder_file_params)
     if @child_file.name.empty?
       @child_file.name = @child_file.uploaded_file.filename
     end
     if @child_file.save
       redirect_to @folder, notice: "#{@child_file.name} をアップロードしました。"
     else
-      redirect_to @folder, alert: "ファイルがアップロード出来ませんでした。"
+      if @child_file.errors.messages.has_key?(:name)
+        message = "ファイル名#{@child_file.name}は既に使われています。"
+      end
+      message += "ファイルがアップロード出来ませんでした。"
+      redirect_to @folder, alert: message
     end
   end
 

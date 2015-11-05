@@ -28,12 +28,15 @@ class ChildFoldersController < ApplicationController
   end
 
   def create
-    @child_folder = Folder.new(folder_params)
-    @child_folder.user = current_user
+    @child_folder = current_user.folders.new(folder_params)
     if @child_folder.save
       redirect_to @folder, notice: "#{@child_folder.name} フォルダを作成しました。"
     else
-      redirect_to @folder, alert: "新しいフォルダが作成出来ませんでした。"
+      if @child_folder.errors.messages.has_key?(:name)
+        message = "フォルダ名#{@child_folder.name}は既に使われています。"
+      end
+      message += "新しいフォルダが作成出来ませんでした。"
+      redirect_to @folder, alert: message
     end
   end
 
