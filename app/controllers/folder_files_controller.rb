@@ -4,7 +4,7 @@ class FolderFilesController < ApplicationController
 
   def new
     @modal_title = "新しいファイルをアップロードします"
-    @child_file = FolderFile.new(folder: @folder, user: current_user)
+    @child_file = current_user.folder_files.new(folder: @folder)
     respond_to do |format|
       format.html
       format.js
@@ -67,10 +67,12 @@ class FolderFilesController < ApplicationController
   private
 
     def set_folder
+      # 共有されたファイルを見る場合、自分以外のフォルダを検索する必要があるため
       @folder = Folder.find(params[:folder_id])
     end
 
     def set_child_file
+      # 共有されたファイルを見る場合、自分以外のフォルダを検索する必要があるため
       @child_file = FolderFile.find(params[:id])
     end
 

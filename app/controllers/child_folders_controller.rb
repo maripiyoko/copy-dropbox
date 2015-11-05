@@ -4,7 +4,7 @@ class ChildFoldersController < ApplicationController
 
   def new
     @modal_title = "新しいフォルダを作成します"
-    @child_folder = Folder.new(parent_folder: @folder, user: current_user)
+    @child_folder = current_user.folders.new(parent_folder: @folder)
     respond_to do |format|
       format.html
       format.js
@@ -61,11 +61,12 @@ class ChildFoldersController < ApplicationController
   private
 
     def set_parent_folder
-      ### 変数名を @parent_folder とした方が、 @child_folder と対となって読みやすいと感じました
+      # 共有されたフォルダを見る場合、自分以外のフォルダを検索する必要があるため
       @folder = Folder.find(params[:folder_id])
     end
 
     def set_child_folder
+      # 共有されたフォルダを見る場合、自分以外のフォルダを検索する必要があるため
       @child_folder = Folder.find(params[:id])
     end
 

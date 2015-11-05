@@ -10,6 +10,9 @@ class SharingFilesController < ApplicationController
   end
 
   def create
+    # ファイルを共有するモデルを作っている。
+    # 共有先のuserをparamsから受け取ってセットする必要がある
+    # 自分のuser_idはリファレンスのfolder_file_idから辿れるので、ここでセットしない
     @sharing_folder_file = SharingFile.new(sharing_folder_file_params)
     if @sharing_folder_file.save
       Notification.sharing_notice(current_user, @sharing_folder_file.user).deliver_now
@@ -22,6 +25,7 @@ class SharingFilesController < ApplicationController
   private
 
     def set_folder_file
+      # ファイルを共有する際に検索している箇所。自分のフォルダのみ対象とする
       @folder_file = current_user.folder_files.find(params[:folder_file_id])
     end
 
