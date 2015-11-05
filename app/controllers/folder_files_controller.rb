@@ -4,7 +4,7 @@ class FolderFilesController < ApplicationController
 
   def new
     @modal_title = "新しいファイルをアップロードします"
-    @child_file = FolderFile.new(folder: @folder, user: current_user)
+    @child_file = current_user.folder_files.new(folder: @folder)
     respond_to do |format|
       format.html
       format.js
@@ -28,15 +28,22 @@ class FolderFilesController < ApplicationController
   end
 
   def create
-    @child_file = FolderFile.new(folder_file_params)
-    @child_file.user = current_user
+    @child_file = current_user.folder_files.new(folder_file_params)
     if @child_file.name.empty?
       @child_file.name = @child_file.uploaded_file.filename
     end
+
     if @child_file.save
       redirect_to @folder, notice: "#{@child_file.name} をアップロードしました。"
     else
-      redirect_to @folder, alert: "ファイルがアップロード出来ませんでした。"
+      name_error_message = @child_file.errors.messages[:name]
+      if name_error_message[0].include?("blank")
+        message = "ファイルがありません。"
+      elsif name_error_message[0].include?("taken")
+        message = "ファイル名#{@child_file.name}は既に使われています。"
+      end
+      message += "ファイルがアップロード出来ませんでした。"
+      redirect_to @folder, alert: message
     end
   end
 
@@ -60,10 +67,12 @@ class FolderFilesController < ApplicationController
   private
 
     def set_folder
+      # 共有されたファイルを見る場合、自分以外のフォルダを検索する必要があるため
       @folder = Folder.find(params[:folder_id])
     end
 
     def set_child_file
+      # 共有されたファイルを見る場合、自分以外のフォルダを検索する必要があるため
       @child_file = FolderFile.find(params[:id])
     end
 

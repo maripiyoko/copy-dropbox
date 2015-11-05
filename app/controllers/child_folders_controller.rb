@@ -4,7 +4,7 @@ class ChildFoldersController < ApplicationController
 
   def new
     @modal_title = "新しいフォルダを作成します"
-    @child_folder = Folder.new(parent_folder: @folder, user: current_user)
+    @child_folder = current_user.folders.new(parent_folder: @folder)
     respond_to do |format|
       format.html
       format.js
@@ -28,12 +28,15 @@ class ChildFoldersController < ApplicationController
   end
 
   def create
-    @child_folder = Folder.new(folder_params)
-    @child_folder.user = current_user
+    @child_folder = current_user.folders.new(folder_params)
     if @child_folder.save
       redirect_to @folder, notice: "#{@child_folder.name} フォルダを作成しました。"
     else
-      redirect_to @folder, alert: "新しいフォルダが作成出来ませんでした。"
+      if @child_folder.errors.messages.has_key?(:name)
+        message = "フォルダ名#{@child_folder.name}は既に使われています。"
+      end
+      message += "新しいフォルダが作成出来ませんでした。"
+      redirect_to @folder, alert: message
     end
   end
 
@@ -47,7 +50,7 @@ class ChildFoldersController < ApplicationController
 
   def destroy
     redirect_to root_path, alert: 'ルートフォルダは削除できません。' if @child_folder.parent_folder_id.nil?
-    if @child_folder.children.empty?
+    if @child_folder.all_children.empty?
       @child_folder.destroy!
       redirect_to @folder, notice: 'フォルダを削除しました。'
     else
@@ -58,11 +61,12 @@ class ChildFoldersController < ApplicationController
   private
 
     def set_parent_folder
-      ### 変数名を @parent_folder とした方が、 @child_folder と対となって読みやすいと感じました
+      # 共有されたフォルダを見る場合、自分以外のフォルダを検索する必要があるため
       @folder = Folder.find(params[:folder_id])
     end
 
     def set_child_folder
+      # 共有されたフォルダを見る場合、自分以外のフォルダを検索する必要があるため
       @child_folder = Folder.find(params[:id])
     end
 
